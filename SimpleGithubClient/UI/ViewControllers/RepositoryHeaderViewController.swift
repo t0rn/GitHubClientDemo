@@ -17,10 +17,11 @@ class RepositoryHeaderViewController: UIViewController {
     var headerUIController: RepositoryHeaderViewUIController!
     var imageFetcher: ImageFetcher!
     
-    var repository: Repository!
+    var repository: Repository?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        guard let repository = repository else {return}
         
         headerUIController = RepositoryHeaderViewUIController(avatarImageView: avatarImageView,
                                                               mainLabel: mainLabel,
@@ -29,6 +30,7 @@ class RepositoryHeaderViewController: UIViewController {
         
         imageFetcher = ImageFetcher()
         imageFetcher.delegate = headerUIController
+        
         
         imageFetcher.fetchImage(repository.owner.avatarURL)
         

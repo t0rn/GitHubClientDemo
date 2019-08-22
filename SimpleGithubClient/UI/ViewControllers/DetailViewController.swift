@@ -18,7 +18,7 @@ class DetailViewController: UITableViewController {
     }
     
     
-    var repository: Repository!
+    var repository: Repository?
     
     
     @IBOutlet weak var stargazersLabelView: LabelView!
@@ -36,7 +36,7 @@ class DetailViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.tableFooterView = UIView()
-        
+        guard let repository = repository else {return}
         
         setupViewControllers()
         setupFetchers(for: repository)

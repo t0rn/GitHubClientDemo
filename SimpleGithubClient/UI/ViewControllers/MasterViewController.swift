@@ -7,9 +7,9 @@
 //
 
 import UIKit
+import ReSwift
 
-
-class MasterViewController: UIViewController {
+class MasterViewController: UIViewController  {
     
     private let tableView = UITableView(frame: .zero)
     
@@ -20,6 +20,22 @@ class MasterViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         tableView.frame = view.frame
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        store.subscribe(self) { (subscription) -> Subscription<ReposListState> in
+            subscription.select({ (state) -> ReposListState in
+                state.reposListState
+            })
+        }
+        
+        store.dispatch(RoutingAction(destination: .reposList))
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        store.unsubscribe(self)
     }
     
     override func viewDidLoad() {
@@ -54,7 +70,14 @@ class MasterViewController: UIViewController {
         }
     }
 }
-
+extension MasterViewController : StoreSubscriber {
+    typealias StoreSubscriberStateType = ReposListState
+    
+    func newState(state: ReposListState) {
+        //TODO: inject new table data source
+        
+    }
+}
 extension MasterViewController : RepositoriesUIControllerDelegate {
     
     func shouldPresent(error: Error) {
@@ -68,7 +91,8 @@ extension MasterViewController : RepositoriesUIControllerDelegate {
     }
     
     func didSelect(repository: Repository) {
-        performSegue(withIdentifier: "toDetailVC", sender: repository)
+        //TODO: pass repository
+        store.dispatch(RoutingAction(destination: .repoDetails) )
     }
 
 }

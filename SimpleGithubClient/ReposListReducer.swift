@@ -1,5 +1,5 @@
 //
-//  AppState.swift
+//  ReposListReducer.swift
 //  SimpleGithubClient
 //
 //  Created by Alexey Ivanov on 22/08/2019.
@@ -8,8 +8,7 @@
 
 import ReSwift
 
-struct AppState: StateType {
-    let routingState: RoutingState
-    let reposListState: ReposListState
-    
+func reposListReducer(action: Action, state: ReposListState?) -> ReposListState {
+    return ReposListState()
 }
+

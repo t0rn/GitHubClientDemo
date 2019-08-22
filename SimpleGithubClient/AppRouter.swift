@@ -24,17 +24,24 @@ final class AppRouter : StoreSubscriber {
         navigationController = UINavigationController()
         window.rootViewController = navigationController
         
-        store.subscribe(self) { (s) -> Subscription<RoutingState> in
-            s.select({ (state) -> RoutingState in
+        store.subscribe(self) { (subscription) -> Subscription<RoutingState> in
+            subscription.select({ (state) -> RoutingState in
                 state.routingState
             })
         }
         
     }
     
-    
     fileprivate func pushViewController(identifier: String, animated: Bool) {
         let viewController = instantiateViewController(identifier: identifier)
+        let newViewControllerType = type(of: viewController)
+        if let currentVc = navigationController.topViewController {
+            let currentViewControllerType = type(of: currentVc)
+            if currentViewControllerType == newViewControllerType {
+                return
+            }
+        }
+        
         navigationController.pushViewController(viewController, animated: animated)
     }
     
