@@ -8,37 +8,53 @@
 
 import UIKit
 
-
-class TableViewDataSource<Model, Cell> : NSObject, UITableViewDataSource where Cell: UITableViewCell & ReusableCell & CellConfigurable, Model == Cell.Controller {
+class TableViewDataSource<Model>: NSObject, UITableViewDataSource {
+    typealias CellConfigurator = (Model, UITableViewCell) -> Void
+    typealias EditingClosure = (UITableView, UITableViewCell.EditingStyle, Model) -> Void
     
-    var dataSource: [Model] = [] {
-        didSet { tableView.reloadData() }
-    }
+    let models: [Model]
+    var onCommitEditing: EditingClosure?
     
-    private unowned var tableView: UITableView
+    private let reuseIdentifier: String
+    private let cellConfigurator: CellConfigurator
     
-    init(tableView: UITableView) {
-        self.tableView = tableView
-        
-        tableView.registerReusableCell(Cell.self)
-    }
-    
-    func object(at indexPath:IndexPath) -> Model? {
-        guard indexPath.row < dataSource.count else {return nil}
-        return dataSource[indexPath.row]
+    init(models: [Model],
+         reuseIdentifier: String,
+         cellConfigurator: @escaping CellConfigurator) {
+        self.models = models
+        self.reuseIdentifier = reuseIdentifier
+        self.cellConfigurator = cellConfigurator
     }
     
     //MARK: UITableViewDataSource
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dataSource.count
+    
+    func tableView(_ tableView: UITableView,
+                   numberOfRowsInSection section: Int) -> Int {
+        return models.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: Cell = tableView.dequeueReusableCell(withIdentifier: Cell.reuseIdentifier, for: indexPath) as! Cell
-        cell.cellController = object(at: indexPath)
+    func tableView(_ tableView: UITableView,
+                   cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let model = models[indexPath.row]
+        let cell = tableView.dequeueReusableCell(
+            withIdentifier: reuseIdentifier,
+            for: indexPath
+        )
+        
+        cellConfigurator(model, cell)
+        
         return cell
     }
-
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        let model = models[indexPath.row]
+        onCommitEditing?(tableView,editingStyle,model)
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        if (onCommitEditing != nil) {
+            return true
+        }
+        return false
+    }
 }
-
-

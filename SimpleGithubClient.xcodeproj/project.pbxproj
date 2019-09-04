@@ -65,6 +65,9 @@
 		DC18C691230EE109004DABF7 /* ReposListReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC18C690230EE109004DABF7 /* ReposListReducer.swift */; };
 		DC18C693230EE578004DABF7 /* RoutingAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC18C692230EE578004DABF7 /* RoutingAction.swift */; };
 		DC18C69C2311B9BA004DABF7 /* FetchReposAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC18C69B2311B9BA004DABF7 /* FetchReposAction.swift */; };
+		DC25FD6D2320279E004F221B /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC25FD6C2320279E004F221B /* BaseTableViewController.swift */; };
+		DC25FD6F23202810004F221B /* RefreshControlPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC25FD6E23202810004F221B /* RefreshControlPresentable.swift */; };
+		DC25FD7123202889004F221B /* UITableView+headerLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC25FD7023202889004F221B /* UITableView+headerLayout.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -142,6 +145,9 @@
 		DC18C690230EE109004DABF7 /* ReposListReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReposListReducer.swift; sourceTree = "<group>"; };
 		DC18C692230EE578004DABF7 /* RoutingAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutingAction.swift; sourceTree = "<group>"; };
 		DC18C69B2311B9BA004DABF7 /* FetchReposAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchReposAction.swift; sourceTree = "<group>"; };
+		DC25FD6C2320279E004F221B /* BaseTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
+		DC25FD6E23202810004F221B /* RefreshControlPresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshControlPresentable.swift; sourceTree = "<group>"; };
+		DC25FD7023202889004F221B /* UITableView+headerLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+headerLayout.swift"; sourceTree = "<group>"; };
 		EAC06EED41407F5F0A4CA5ED /* Pods-SimpleGithubClientTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimpleGithubClientTests.debug.xcconfig"; path = "Target Support Files/Pods-SimpleGithubClientTests/Pods-SimpleGithubClientTests.debug.xcconfig"; sourceTree = "<group>"; };
 		EC3FB2FE45D860D847ACCF4F /* Pods_SimpleGithubClient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SimpleGithubClient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -264,6 +270,9 @@
 				DC18C688230ED62B004DABF7 /* AppRouter.swift */,
 				DC18C68A230ED6BD004DABF7 /* RoutingState.swift */,
 				DC18C68C230ED727004DABF7 /* RoutingReducer.swift */,
+				DC25FD6C2320279E004F221B /* BaseTableViewController.swift */,
+				DC25FD6E23202810004F221B /* RefreshControlPresentable.swift */,
+				DC25FD7023202889004F221B /* UITableView+headerLayout.swift */,
 				DC18C692230EE578004DABF7 /* RoutingAction.swift */,
 				DC18C69B2311B9BA004DABF7 /* FetchReposAction.swift */,
 			);
@@ -533,6 +542,7 @@
 				33BDF46B2152D4E9004E4F95 /* StringFetcherDelegate.swift in Sources */,
 				33BDF4672152D49E004E4F95 /* NibLoadingView.swift in Sources */,
 				DC18C691230EE109004DABF7 /* ReposListReducer.swift in Sources */,
+				DC25FD6F23202810004F221B /* RefreshControlPresentable.swift in Sources */,
 				33BDF46D2152D510004E4F95 /* FetchingState.swift in Sources */,
 				330D6A3021510988004236A2 /* RepositoryHeaderViewController.swift in Sources */,
 				DC18C689230ED62B004DABF7 /* AppRouter.swift in Sources */,
@@ -542,6 +552,7 @@
 				33BDF4692152D4C5004E4F95 /* UIView+nib.swift in Sources */,
 				DC18C68F230EE0D8004DABF7 /* ReposListState.swift in Sources */,
 				33BDF4752152D58B004E4F95 /* ImageFetcherDelegate.swift in Sources */,
+				DC25FD6D2320279E004F221B /* BaseTableViewController.swift in Sources */,
 				6C7255F2214EA67100290D99 /* GithubEndpoints.swift in Sources */,
 				6C7255F8214EA99600290D99 /* HTTPMethods.swift in Sources */,
 				DC18C685230ED40D004DABF7 /* AppState.swift in Sources */,
@@ -550,6 +561,7 @@
 				33BDF46F2152D527004E4F95 /* RepositoriesFetchable.swift in Sources */,
 				33EFAE1721528C4900DAE838 /* LabelView.swift in Sources */,
 				330D6A22214FD33D004236A2 /* ReusableCell.swift in Sources */,
+				DC25FD7123202889004F221B /* UITableView+headerLayout.swift in Sources */,
 				DC18C687230ED47E004DABF7 /* AppReducer.swift in Sources */,
 				DC18C68B230ED6BD004DABF7 /* RoutingState.swift in Sources */,
 				330D6A2E21510285004236A2 /* User.swift in Sources */,

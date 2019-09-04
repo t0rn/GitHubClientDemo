@@ -20,8 +20,9 @@ final class AppRouter : StoreSubscriber {
     
     let navigationController: UINavigationController
     
-    init(window: UIWindow) {
-        navigationController = UINavigationController()
+    init(window: UIWindow,
+         navigationController:UINavigationController = UINavigationController()) {
+        self.navigationController = navigationController
         window.rootViewController = navigationController
         
         store.subscribe(self) { (subscription) -> Subscription<RoutingState> in
@@ -34,6 +35,15 @@ final class AppRouter : StoreSubscriber {
     
     fileprivate func pushViewController(identifier: String, animated: Bool) {
         let viewController = instantiateViewController(identifier: identifier)
+        push(viewController: viewController, animated: animated)
+    }
+    
+    fileprivate func instantiateViewController(identifier: String) -> UIViewController {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        return storyboard.instantiateViewController(withIdentifier: identifier)
+    }
+    
+    fileprivate func push(viewController:UIViewController, animated:Bool) {
         let newViewControllerType = type(of: viewController)
         if let currentVc = navigationController.topViewController {
             let currentViewControllerType = type(of: currentVc)
@@ -45,15 +55,13 @@ final class AppRouter : StoreSubscriber {
         navigationController.pushViewController(viewController, animated: animated)
     }
     
-    private func instantiateViewController(identifier: String) -> UIViewController {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        return storyboard.instantiateViewController(withIdentifier: identifier)
-    }
-    
     //MARK: - StoreSubscriber
     func newState(state: RoutingState) {
-        let shouldAnimate = navigationController.topViewController != nil
-        pushViewController(identifier: state.navigationState.rawValue, animated: shouldAnimate)
+        guard state.navigationState != .reposList else {
+            push(viewController: MasterViewController(), animated: false)
+            return
+        }
+        pushViewController(identifier: state.navigationState.rawValue, animated: true)
     }
     
 }

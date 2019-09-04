@@ -9,29 +9,16 @@
 import UIKit
 import ReSwift
 
-class MasterViewController: UIViewController  {
-    
-    private let tableView = UITableView(frame: .zero)
-    
-    var uiController: RepositoriesUIController!
-    
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        tableView.frame = view.frame
-    }
+class MasterViewController: BaseTableViewController  {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         store.subscribe(self) { (subscription) -> Subscription<ReposListState> in
             subscription.select({ (state) -> ReposListState in
                 state.reposListState
             })
         }
-        
-        store.dispatch(fetchReposAction())
-
-//        store.dispatch(RoutingAction(destination: .reposList))
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -41,32 +28,25 @@ class MasterViewController: UIViewController  {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        view.addSubview(tableView)
         tableView.tableFooterView = UIView()
-        
-        uiController = RepositoriesUIController(tableView: tableView)
-        uiController.delegate = self
-        
+        fetch()
     }
 
+    override func refreshControlValueChanged() {
+        fetch()
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-    //MARK: Navigation
-    //TODO: use coordinator pattern
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toDetailVC",
-            let detailVC = segue.destination as? DetailViewController,
-            let repo = sender as? Repository {
-            detailVC.repository = repo
-            return
-        }
+    
+    fileprivate func fetch() {
+        store.dispatch(fetchReposAction())
     }
+    
 }
+
 extension MasterViewController : StoreSubscriber {
     typealias StoreSubscriberStateType = ReposListState
     
@@ -79,16 +59,12 @@ extension MasterViewController : StoreSubscriber {
         
     }
 }
-extension MasterViewController : RepositoriesUIControllerDelegate {
+extension MasterViewController  {
     
-    func shouldPresent(error: Error) {
+    func presentAlertFor(error: Error) {
         let alert = UIAlertController(title: "Oops", message: error.localizedDescription, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil) )
         present(alert, animated: true, completion: nil)
-    }
-    
-    func refreshControlValueChanged(_ control: UIRefreshControl) {
-        
     }
     
     func didSelect(repository: Repository) {
