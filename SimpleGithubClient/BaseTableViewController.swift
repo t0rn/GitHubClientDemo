@@ -27,7 +27,9 @@ open class BaseTableViewController: UITableViewController, BaseTableViewProtocol
     public var tableDataSource:UITableViewDataSource? {
         didSet {
             guard isViewLoaded else {return}
-            tableView.dataSource = tableDataSource
+            DispatchQueue.main.async {
+                self.tableView.dataSource = self.tableDataSource
+            }
         }
     }
     
@@ -35,7 +37,9 @@ open class BaseTableViewController: UITableViewController, BaseTableViewProtocol
     public var tableDelegate:UITableViewDelegate? {
         didSet{
             guard isViewLoaded else {return}
-            tableView.delegate = tableDelegate
+            DispatchQueue.main.async {
+                self.tableView.delegate = self.tableDelegate
+            }
         }
     }
     
@@ -56,7 +60,9 @@ open class BaseTableViewController: UITableViewController, BaseTableViewProtocol
     public var backgroundView:UIView? {
         didSet {
             guard isViewLoaded else {return}
-            tableView.backgroundView = backgroundView
+            DispatchQueue.main.async {
+                self.tableView.backgroundView = self.backgroundView
+            }
         }
     }
     
@@ -67,7 +73,9 @@ open class BaseTableViewController: UITableViewController, BaseTableViewProtocol
     
     open func reloadData() {
         guard isViewLoaded else {return}
-        tableView.reloadData()
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
     
     @objc open func refreshControlValueChanged() {

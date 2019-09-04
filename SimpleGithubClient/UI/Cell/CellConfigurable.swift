@@ -7,10 +7,3 @@
 //
 
 import Foundation
-
-
-protocol CellConfigurable: class {
-    associatedtype Controller
-    
-    var cellController: Controller? { get set }
-}

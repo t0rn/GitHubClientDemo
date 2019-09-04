@@ -8,12 +8,8 @@
 
 import UIKit
 
-@IBDesignable class LabelView : NibLoadingView , CellConfigurable {
-    typealias Controller = LabelViewController
-    
+@IBDesignable class LabelView : NibLoadingView {
     @IBOutlet weak var label: UILabel!
-    
-    var cellController: LabelViewController?
     
 }
 

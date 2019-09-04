@@ -10,5 +10,5 @@ import ReSwift
 
 struct ReposListState: StateType {
     var showLoading:Bool
-    var repos:[Repository]?
+    var repositories:[Repository]?
 }

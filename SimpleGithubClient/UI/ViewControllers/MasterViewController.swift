@@ -29,6 +29,7 @@ class MasterViewController: BaseTableViewController  {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.tableFooterView = UIView()
+        tableView.registerReusableCell(SimpleRepositoryCell.self)
         fetch()
     }
 
@@ -51,12 +52,23 @@ extension MasterViewController : StoreSubscriber {
     typealias StoreSubscriberStateType = ReposListState
     
     func newState(state: ReposListState) {
-        //TODO: inject new table data source
-        if let repos = state.repos {
-            print(repos)
+        
+        if let repos = state.repositories {
+            tableDataSource = makeDataSourceFor(repositories: repos)
+            reloadData()
         }
         //TODO: toggle loading activity indicator by state.showLoading
         
+    }
+    
+    func makeDataSourceFor(repositories:[Repository]) -> UITableViewDataSource {
+        return TableViewDataSource<Repository>(models: repositories,
+                                        reuseIdentifier: SimpleRepositoryCell.reuseIdentifier,
+                                        cellConfigurator: { (repository, cell) in
+                                            guard let cell = cell as? SimpleRepositoryCell else {return}
+                                            cell.textLabel?.text = repository.fullname
+                                            cell.detailTextLabel?.text = repository.descr
+        })
     }
 }
 extension MasterViewController  {

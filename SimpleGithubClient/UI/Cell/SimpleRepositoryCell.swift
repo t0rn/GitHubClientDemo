@@ -8,16 +8,7 @@
 
 import UIKit
 
-class SimpleRepositoryCell : UITableViewCell, ReusableCell, CellConfigurable {
-    typealias Controller = SimpleRepositoryCellController
-    
-    var cellController: SimpleRepositoryCellController? {
-        didSet{
-            guard let controller = cellController else {return}
-            textLabel?.text = controller.fullname
-            detailTextLabel?.text = controller.descr
-        }
-    }
+class SimpleRepositoryCell : UITableViewCell, ReusableCell {
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
