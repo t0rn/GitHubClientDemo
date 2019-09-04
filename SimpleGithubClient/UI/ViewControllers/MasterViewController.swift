@@ -52,13 +52,12 @@ extension MasterViewController : StoreSubscriber {
     typealias StoreSubscriberStateType = ReposListState
     
     func newState(state: ReposListState) {
-        
         if let repos = state.repositories {
             tableDataSource = makeDataSourceFor(repositories: repos)
             reloadData()
         }
-        //TODO: toggle loading activity indicator by state.showLoading
         
+        state.showLoading ? beginRefreshing() : endRefreshing()
     }
     
     func makeDataSourceFor(repositories:[Repository]) -> UITableViewDataSource {

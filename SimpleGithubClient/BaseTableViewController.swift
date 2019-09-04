@@ -85,11 +85,15 @@ open class BaseTableViewController: UITableViewController, BaseTableViewProtocol
     //MARK: RefreshControlPresentable
     
     public func endRefreshing() {
-        refreshControl?.endRefreshing()
+        DispatchQueue.main.async {
+            self.refreshControl?.endRefreshing()
+        }
     }
     
     public func beginRefreshing() {
-        refreshControl?.beginRefreshing()
+        DispatchQueue.main.async {
+            self.refreshControl?.beginRefreshing()            
+        }
     }
     
     private func makeRefreshControl() -> UIRefreshControl {

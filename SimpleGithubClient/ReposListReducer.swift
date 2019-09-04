@@ -13,8 +13,13 @@ func reposListReducer(action: Action, state: ReposListState?) -> ReposListState 
     switch action {
     case _ as FetchReposAction:
         state.showLoading = true
+        state.repositories = nil
     case let setReposAction as SetReposAction:
+        state.showLoading = false
         state.repositories = setReposAction.repositories
+    case _ as SetErrorAction:
+        state.showLoading = false
+        state.repositories = nil
     default: break
     }
     return state
