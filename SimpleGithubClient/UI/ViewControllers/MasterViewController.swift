@@ -14,7 +14,6 @@ class MasterViewController: UIViewController  {
     private let tableView = UITableView(frame: .zero)
     
     var uiController: RepositoriesUIController!
-    var fetcher: RepositoriesFetcher!
     
     
     override func viewDidLayoutSubviews() {
@@ -30,7 +29,9 @@ class MasterViewController: UIViewController  {
             })
         }
         
-        store.dispatch(RoutingAction(destination: .reposList))
+        store.dispatch(fetchReposAction())
+
+//        store.dispatch(RoutingAction(destination: .reposList))
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -47,10 +48,6 @@ class MasterViewController: UIViewController  {
         uiController = RepositoriesUIController(tableView: tableView)
         uiController.delegate = self
         
-        fetcher = RepositoriesFetcher(apiClient: GithibAPIClient())
-        fetcher.delegate = uiController
-        
-        fetcher.fetchRepositories()
     }
 
     
@@ -75,6 +72,10 @@ extension MasterViewController : StoreSubscriber {
     
     func newState(state: ReposListState) {
         //TODO: inject new table data source
+        if let repos = state.repos {
+            print(repos)
+        }
+        //TODO: toggle loading activity indicator by state.showLoading
         
     }
 }
@@ -87,12 +88,12 @@ extension MasterViewController : RepositoriesUIControllerDelegate {
     }
     
     func refreshControlValueChanged(_ control: UIRefreshControl) {
-        fetcher.fetchRepositories()
+        
     }
     
     func didSelect(repository: Repository) {
         //TODO: pass repository
-        store.dispatch(RoutingAction(destination: .repoDetails) )
+        store.dispatch( RoutingAction(destination: .repoDetails) )
     }
 
 }

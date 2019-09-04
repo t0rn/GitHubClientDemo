@@ -9,6 +9,18 @@
 import ReSwift
 
 func reposListReducer(action: Action, state: ReposListState?) -> ReposListState {
-    return ReposListState()
+    var state = state ?? ReposListState(showLoading: false, repos: nil)
+    switch action {
+    case _ as FetchReposAction:
+        state.showLoading = true
+    case let setReposAction as SetReposAction:
+        state.repos = setReposAction.repositories
+    default: break
+    }
+    return state
+}
+
+struct SetReposAction : Action {
+    let repositories: [Repository]
 }
 

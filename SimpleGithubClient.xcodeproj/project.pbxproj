@@ -64,6 +64,7 @@
 		DC18C68F230EE0D8004DABF7 /* ReposListState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC18C68E230EE0D8004DABF7 /* ReposListState.swift */; };
 		DC18C691230EE109004DABF7 /* ReposListReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC18C690230EE109004DABF7 /* ReposListReducer.swift */; };
 		DC18C693230EE578004DABF7 /* RoutingAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC18C692230EE578004DABF7 /* RoutingAction.swift */; };
+		DC18C69C2311B9BA004DABF7 /* FetchReposAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC18C69B2311B9BA004DABF7 /* FetchReposAction.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -140,6 +141,7 @@
 		DC18C68E230EE0D8004DABF7 /* ReposListState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReposListState.swift; sourceTree = "<group>"; };
 		DC18C690230EE109004DABF7 /* ReposListReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReposListReducer.swift; sourceTree = "<group>"; };
 		DC18C692230EE578004DABF7 /* RoutingAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutingAction.swift; sourceTree = "<group>"; };
+		DC18C69B2311B9BA004DABF7 /* FetchReposAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchReposAction.swift; sourceTree = "<group>"; };
 		EAC06EED41407F5F0A4CA5ED /* Pods-SimpleGithubClientTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimpleGithubClientTests.debug.xcconfig"; path = "Target Support Files/Pods-SimpleGithubClientTests/Pods-SimpleGithubClientTests.debug.xcconfig"; sourceTree = "<group>"; };
 		EC3FB2FE45D860D847ACCF4F /* Pods_SimpleGithubClient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SimpleGithubClient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -263,6 +265,7 @@
 				DC18C68A230ED6BD004DABF7 /* RoutingState.swift */,
 				DC18C68C230ED727004DABF7 /* RoutingReducer.swift */,
 				DC18C692230EE578004DABF7 /* RoutingAction.swift */,
+				DC18C69B2311B9BA004DABF7 /* FetchReposAction.swift */,
 			);
 			path = SimpleGithubClient;
 			sourceTree = "<group>";
@@ -506,6 +509,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DC18C693230EE578004DABF7 /* RoutingAction.swift in Sources */,
+				DC18C69C2311B9BA004DABF7 /* FetchReposAction.swift in Sources */,
 				330D6A12214FD163004236A2 /* RepositoriesFetcher.swift in Sources */,
 				330D6A1E214FD244004236A2 /* RepositoriesUIController.swift in Sources */,
 				330D6A3521516C92004236A2 /* UITableView+extension.swift in Sources */,
