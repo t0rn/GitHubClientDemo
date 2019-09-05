@@ -9,7 +9,7 @@
 import UIKit
 
 
-final class RepositoryHeaderViewUIController : ImageFetcherDelegate {
+final class RepositoryHeaderViewUIController {
     
     private let spinner = UIActivityIndicatorView(activityIndicatorStyle: .white)
     

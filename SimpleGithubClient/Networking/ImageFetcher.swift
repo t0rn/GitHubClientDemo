@@ -20,33 +20,29 @@ final class ImageFetcher  : ImageFetchable {
         self.session = session
     }
     
-    
-    weak var delegate: ImageFetcherDelegate?
-    
-    
     func fetchImage(_ url:URL,
-                    cachePolicy:URLRequest.CachePolicy = URLRequest.CachePolicy.useProtocolCachePolicy) {
-        delegate?.state = .loading
+                    cachePolicy:URLRequest.CachePolicy = URLRequest.CachePolicy.useProtocolCachePolicy,
+                    completion:@escaping (Result<UIImage>) -> Void) {
         let req = URLRequest(url: url, cachePolicy: cachePolicy )
         let task = session.dataTask(with: req) { (data, response, error) in
             DispatchQueue.main.async {
                 if let error = error {
-                    self.delegate?.state = .failure(error)
+                    completion(.failure(error))
                     return
                 }
                 if let response = response as? HTTPURLResponse, response.statusCode != 200 {
-                    self.delegate?.state = .failure(APIErrors.wrongResponseCode(response.statusCode))
+                    completion(.failure(APIErrors.wrongResponseCode(response.statusCode)))
                     return
                 }
                 guard let data = data else {
-                    self.delegate?.state = .failure(APIErrors.noData)
+                    completion(.failure(APIErrors.noData))
                     return
                 }
                 guard let image = UIImage(data: data) else {
-                    self.delegate?.state = .failure(Errors.unsupportedData)
+                    completion(.failure(Errors.unsupportedData))
                     return
                 }
-                self.delegate?.state = .success(image)
+                completion(.success(image))
             }
         }
         task.resume()

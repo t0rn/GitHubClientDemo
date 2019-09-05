@@ -16,8 +16,7 @@ enum RoutingDestination: String {
 
 final class AppRouter : StoreSubscriber {
     typealias StoreSubscriberStateType = RoutingState
-    
-    
+
     let navigationController: UINavigationController
     
     init(window: UIWindow,
@@ -29,8 +28,7 @@ final class AppRouter : StoreSubscriber {
             subscription.select({ (state) -> RoutingState in
                 state.routingState
             })
-        }
-        
+        }        
     }
     
     fileprivate func pushViewController(identifier: String, animated: Bool) {

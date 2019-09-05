@@ -28,11 +28,11 @@ class RepositoryHeaderViewController: UIViewController {
                                                               detailLabel: detailLabel)
         headerUIController.repository = repository
         
-        imageFetcher = ImageFetcher()
-        imageFetcher.delegate = headerUIController
         
-        
-        imageFetcher.fetchImage(repository.owner.avatarURL)
+//        
+//        imageFetcher.fetchImage(repository.owner.avatarURL) { (result) in
+//            //
+//        }
         
         
         

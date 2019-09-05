@@ -6,9 +6,8 @@
 //  Copyright © 2018 Alexey Ivanov. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 protocol ImageFetchable {
-    func fetchImage(_ url:URL, cachePolicy:URLRequest.CachePolicy)
-    var delegate: ImageFetcherDelegate? {get set}
+    func fetchImage(_ url:URL, cachePolicy:URLRequest.CachePolicy, completion:@escaping (Result<UIImage>) -> Void )
 }

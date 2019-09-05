@@ -10,5 +10,5 @@ import Foundation
 
 protocol RepositoriesFetchable {
     func fetchRepositories()
-    var delegate:RepositoriesFetchableDelegate? {get set}
+    
 }

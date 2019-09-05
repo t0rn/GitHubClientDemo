@@ -54,20 +54,13 @@ extension MasterViewController : StoreSubscriber {
     func newState(state: ReposListState) {
         if let repos = state.repositories {
             tableDataSource = makeDataSourceFor(repositories: repos)
+            tableDelegate = makeTableViewDelegate(repos: repos)
             reloadData()
         }
-        
         state.showLoading ? beginRefreshing() : endRefreshing()
-    }
-    
-    func makeDataSourceFor(repositories:[Repository]) -> UITableViewDataSource {
-        return TableViewDataSource<Repository>(models: repositories,
-                                        reuseIdentifier: SimpleRepositoryCell.reuseIdentifier,
-                                        cellConfigurator: { (repository, cell) in
-                                            guard let cell = cell as? SimpleRepositoryCell else {return}
-                                            cell.textLabel?.text = repository.fullname
-                                            cell.detailTextLabel?.text = repository.descr
-        })
+        DispatchQueue.main.async {
+            self.title = state.showLoading ? "Loading..." : "Repositories"
+        }
     }
 }
 extension MasterViewController  {
@@ -80,8 +73,25 @@ extension MasterViewController  {
     
     func didSelect(repository: Repository) {
         //TODO: pass repository
-        store.dispatch( RoutingAction(destination: .repoDetails) )
+        store.dispatch( RepoDetailsRoutingAction(repository:repository) )
     }
 
 }
 
+//MARK: Dependency Factories
+extension MasterViewController {
+    func makeTableViewDelegate(repos:[Repository]) -> UITableViewDelegate {
+        return TableViewDelegate<Repository>(models:repos, didSelectItem: { (model) in
+            store.dispatch(RepoDetailsRoutingAction(repository: model))
+        })
+    }
+    func makeDataSourceFor(repositories:[Repository]) -> UITableViewDataSource {
+        return TableViewDataSource<Repository>(models: repositories,
+                                               reuseIdentifier: SimpleRepositoryCell.reuseIdentifier,
+                                               cellConfigurator: { (repository, cell) in
+                                                guard let cell = cell as? SimpleRepositoryCell else {return}
+                                                cell.textLabel?.text = repository.fullname
+                                                cell.detailTextLabel?.text = repository.descr
+        })
+    }
+}

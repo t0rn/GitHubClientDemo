@@ -11,3 +11,8 @@ import ReSwift
 struct RoutingAction: Action {
     let destination: RoutingDestination
 }
+
+struct RepoDetailsRoutingAction : Action {
+    let destination: RoutingDestination = .repoDetails
+    let repository:Repository
+}
